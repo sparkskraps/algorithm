@@ -1,5 +1,6 @@
 /*******************************
- * This is the test file for the sort algorithm(select sort, etc)
+ * This is the test file for the 
+ * sort algorithm(select sort, insert sort, etc)
  *******************************/
 
 #include <iostream>
@@ -14,11 +15,13 @@
 #include "./comm/test_sort.hpp"
 #include "./insert_sort/insert_sort.hpp"
 #include "./quick_sort/quick_sort.hpp"
+#include "./merge_sort/merge_sort.hpp"
 
 using namespace select_sort;
 using namespace test_sort;
 using namespace insert_sort;
 using namespace quick_sort;
+using namespace merge_sort;
 
 int main()
 {	
@@ -30,7 +33,8 @@ int main()
 	int *arr2 = copyArray(arr, count);
 
 	// testSort("selection sort", selectSort<int>, arr, count);
-	testSort("insert sort", insertSort<int>, arr2, count);
+	// testSort("insert sort", insertSort<int>, arr2, count);
+	testSort("merge sort", mergeSort<int>, arr2, count);
 	testSort("quick sort", quickSort<int>, arr, count);
 	// test_sort("quick sort three way", quick_sort_three, arr2, 1000);
 
@@ -41,6 +45,4 @@ int main()
 
 	return 0;
 }
-
-
 
