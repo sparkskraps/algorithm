@@ -25,7 +25,7 @@ using namespace merge_sort;
 
 int main()
 {	
-	int count = 50000;
+	int count = 200000;
 	int iStart = 1;
 	int iEnd = 1000;
 	// generate `count` numbers, the range is [`iStart`, `iEnd`].
@@ -34,9 +34,13 @@ int main()
 
 	// testSort("selection sort", selectSort<int>, arr, count);
 	// testSort("insert sort", insertSort<int>, arr2, count);
-	testSort("merge sort", mergeSort<int>, arr2, count);
-	testSort("quick sort", quickSort<int>, arr, count);
-	// test_sort("quick sort three way", quick_sort_three, arr2, 1000);
+	
+	/**************************************************************
+	 * The [merge, quickSort] are faster than [selection, insert].
+	 * ***********************************************************/
+	testSort("merge sort", mergeSort<int>, arr, count);
+	// testSort("quick sort", quickSort<int>, arr, count);
+	testSort("three-way quick sort", threeWayQuickSort<int>, arr2, count);
 
 	delete[] arr;
 	delete[] arr2;
