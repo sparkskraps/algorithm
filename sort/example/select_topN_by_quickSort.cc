@@ -57,7 +57,11 @@ int main()
 	int count = 20;
 	int *arr = generateRandom(count, 1, 50);
 	quick_sort(arr, 0, count-1, count);
+
 	for(int i=0; i<count; i++)
+		std::cout << arr[i] << " ";
+	std::cout << "\nresult:\n";
+	for(int i=count-1; (topN--)>0; i--)
 		std::cout << arr[i] << " ";
 	std::cout << "\n";
 	delete[] arr;

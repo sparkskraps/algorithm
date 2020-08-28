@@ -16,16 +16,18 @@
 #include "./insert_sort/insert_sort.hpp"
 #include "./quick_sort/quick_sort.hpp"
 #include "./merge_sort/merge_sort.hpp"
+#include "./heap_sort/heap_sort.hpp"
 
 using namespace select_sort;
 using namespace test_sort;
 using namespace insert_sort;
 using namespace quick_sort;
 using namespace merge_sort;
+using namespace heap_sort;
 
 int main()
 {	
-	int count = 200000;
+	int count = 2000000;
 	int iStart = 1;
 	int iEnd = 1000;
 	// generate `count` numbers, the range is [`iStart`, `iEnd`].
@@ -40,7 +42,9 @@ int main()
 	 * ***********************************************************/
 	testSort("merge sort", mergeSort<int>, arr, count);
 	// testSort("quick sort", quickSort<int>, arr, count);
-	testSort("three-way quick sort", threeWayQuickSort<int>, arr2, count);
+	// testSort("three-way quick sort", threeWayQuickSort<int>, arr2, count);
+	// testSort("heap sort", sort_arr<int>, arr2, count);
+	testSort("heap sort", heapSort<int>, arr2, count);
 
 	delete[] arr;
 	delete[] arr2;
