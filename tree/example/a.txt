@@ -9,14 +9,14 @@ class Bst
 {
 	public:
 		Bst()
-		  : m_root_node(NULL)
+		  : pRootNode(NULL)
 		{
 		}
 
 		typedef struct Node
 		{
 			Node() = default;
-			Node(Key &k, Value &v)
+			Node(const Key &k, const Value &v)
 			  : m_key(k), m_value(v)
 			{
 			}
@@ -26,19 +26,29 @@ class Bst
 			struct Node *rChild;
 		}Node;
 
-		void add_to_bst(Key k, Value v)
+		void add_to_bst(const Key &k, const Value &v)
 		{
 			Node *newNode = new Node(k, v);
-			m_root_node = add_to_bst(m_root_node, newNode);
+			pRootNode = add_to_bst(pRootNode, newNode);
+		}
+
+		int get_value_by_key(const Key &k, int *value)
+		{
+			if(value == NULL)
+				return -1;
+			Node *pNode = get_value_by_key(pRootNode, k);
+			if(NULL == pNode)
+				return -1;
+			*value = pNode->m_value;
+			return 0;
 		}
 
 		void print_tree_by_bfs()
 		{
-			if(NULL == m_root_node)
+			if(NULL == pRootNode)
 				return;
 
-			std::cout << "wtf\n";
-			m_queue.push(m_root_node);	
+			m_queue.push(pRootNode);	
 			while(!m_queue.empty())
 			{
 				Node *pTmpNode = m_queue.front();
@@ -73,14 +83,33 @@ class Bst
 			}
 			else
 			{
-				pRootNode->m_value = pNewNode->m_value;
+				pRootNode->m_value += 1;
 			}
 
 			return pRootNode;
 		}
 
+		Node *get_value_by_key(Node *pNode, const Key &k)
+		{
+			if(pNode == NULL)
+				return NULL;
+
+			if(pNode->m_key < k)
+			{
+				return get_value_by_key(pNode->rChild, k);
+			}
+			else if(pNode->m_key > k)
+			{
+				return get_value_by_key(pNode->lChild, k);
+			}
+			else
+			{
+				return pNode;
+			}
+		}
+
 	private:
-		Node *m_root_node;
+		Node *pRootNode;
 		std::queue<Node *> m_queue;
 };
 
@@ -95,6 +124,19 @@ int main()
 	bstTree.add_to_bst(6, 2);
 
 	bstTree.print_tree_by_bfs();
+
+	int value;
+	int res = bstTree.get_value_by_key(2, &value);
+	if(0 == res)
+		std::cout << value << "\n";
+	else
+		std::cout << "not found\n";
+
+	res = bstTree.get_value_by_key(7, &value);
+	if(0 == res)
+		std::cout << value << "\n";
+	else
+		std::cout << "not found\n";
 
 	return 0;
 }
