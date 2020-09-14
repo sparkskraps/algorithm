@@ -81,6 +81,16 @@ class Bst
 			return in_order_visit(pRootNode);
 		}
 
+		void delete_min_key()
+		{
+			pRootNode = delete_min_key(pRootNode);
+		}
+
+		void delete_max_key()
+		{
+			pRootNode = delete_max_key(pRootNode);
+		}
+
 	protected:
 		Node *add_to_bst(Node *pRootNode, Node *pNewNode)
 		{
@@ -155,6 +165,32 @@ class Bst
 				in_order_visit(pRootNode->rChild);
 		}
 
+		Node *delete_min_key(Node *pRootNode)
+		{
+			if(NULL == pRootNode)
+				return NULL;
+			if(pRootNode->lChild == NULL)
+			{
+				Node *pTmpNode = pRootNode->rChild;
+				delete pRootNode;
+				return pTmpNode;
+			}
+			delete_min_key(pRootNode->lChild);	
+		}
+
+		Node *delete_max_key(Node *pRootNode)
+		{
+			if(NULL == pRootNode)
+				return NULL;
+			if(pRootNode->rChild == NULL)
+			{
+				Node *pTmpNode = pRootNode->lChild;
+				delete pRootNode;
+				return pTmpNode;
+			}
+			pRootNode->rChild = delete_max_key(pRootNode->rChild);
+		}
+
 	private:
 		Node *pRootNode;
 		std::queue<Node *> m_queue;
@@ -183,3 +219,4 @@ int main()
 	return 0;
 }
 #endif
+
